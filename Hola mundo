@@ -1,0 +1,36 @@
+#include <SPI.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_ILI9341.h>
+
+// Definir pines para la pantalla TFT
+#define TFT_CS   15  // Chip select
+#define TFT_RST  4   // Reset
+#define TFT_DC   2   // Data/Command
+
+// Crear el objeto para la pantalla TFT
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
+
+void setup() {
+  // Iniciar comunicación serie
+  Serial.begin(115200);
+  
+  // Inicializar la pantalla TFT
+  tft.begin();
+  
+  // Establecer fondo blanco
+  tft.fillScreen(ILI9341_WHITE);
+  
+  // Establecer el color del texto (negro)
+  tft.setTextColor(ILI9341_BLACK);
+  
+  // Establecer el tamaño de la fuente
+  tft.setTextSize(2);
+  
+  // Mostrar el texto "Hola Mundo" en la pantalla
+  tft.setCursor(50, 50); // Posición del texto en píxeles
+  tft.print("Hola Mundo");
+}
+
+void loop() {
+  // No es necesario hacer nada en el loop
+}
