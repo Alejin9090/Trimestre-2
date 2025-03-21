@@ -1,0 +1,34 @@
+#include <Adafruit_GFX.h>
+#include <Adafruit_ST7735.h>  // Usa esta si tu pantalla es ST7735/ST7789
+#include <SPI.h>
+
+#define TFT_CS     5   // Ajusta estos pines según tu conexión
+#define TFT_RST    4  
+#define TFT_DC     2  
+
+Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
+
+// Logo en formato hexadecimal (16x16 ejemplo)
+const uint16_t logo[] PROGMEM = {
+  0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000,  
+  0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000,  
+  0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF,  
+  0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF, 0x0000, 0xFFFF   
+};
+
+void drawBitmap() {
+  int width = 16, height = 16;
+  for (int y = 0; y < height; y++) {
+    for (int x = 0; x < width; x++) {
+      tft.drawPixel(x + 50, y + 50, pgm_read_word(&logo[y * width + x]));
+    }
+  }
+}
+
+void setup() {
+  tft.initR(INITR_BLACKTAB);
+  tft.fillScreen(ST77XX_BLACK);
+  drawBitmap();  // Dibujar el logo
+}
+
+void loop() {}
